@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Récupérer le PID depuis les arguments
+pid=$1
+
+# Obtenir le chemin du script en cours d'exécution
+script_path=$(ps -p $pid -o cmd | tail -n 1)
+
+# Afficher le chemin du script
+echo "Le script du processus avec le PID $pid est situé à :"
+echo "$script_path"
+
+# Obtenir la date de création du script (Birth)
+creation_date=$(stat -c %w "$script_path")
+# Afficher la date de création
+echo "Date de création du script : $creation_date"
+
+# Obtenir le propriétaire du script
+owner=$(stat -c %U "$script_path")
+# Afficher le propriétaire
+echo "Propriétaire du script : $owner"
