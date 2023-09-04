@@ -10,12 +10,25 @@ script_path=$(ps -p $pid -o cmd | tail -n 1)
 echo "Le script du processus avec le PID $pid est situé à :"
 echo "$script_path"
 
-# Obtenir la date de création du script (Birth)
+# Obtenir la date de création (Birth) du script
 creation_date=$(stat -c %w "$script_path")
-# Afficher la date de création
 echo "Date de création du script : $creation_date"
 
-# Obtenir le propriétaire du script
-owner=$(stat -c %U "$script_path")
-# Afficher le propriétaire
-echo "Propriétaire du script : $owner"
+# Obtenir la taille du script en octets
+script_size=$(stat -c %s "$script_path")
+echo "Taille du script : $script_size octets"
+
+# Obtenir les permissions du script
+script_permissions=$(stat -c %a "$script_path")
+echo "Permissions du script : $script_permissions"
+
+# Obtenir la date de dernière modification du script
+modification_date=$(stat -c %y "$script_path")
+echo "Date de dernière modification du script : $modification_date"
+
+# Afficher les arguments du script
+echo "Arguments du script : $*"
+
+# Afficher le contenu du script
+echo "Contenu du script :"
+cat "$script_path"
